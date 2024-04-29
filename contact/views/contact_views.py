@@ -1,5 +1,5 @@
-from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
 
 from contact.models import Contact
 
@@ -34,12 +34,13 @@ def search(request):
             Q(last_name__icontains=search_value) |
             Q(phone__icontains=search_value) |
             Q(email__icontains=search_value)
-            )\
+        )\
         .order_by('-id')
 
     context = {
         'contacts': contacts,
-        'site_title': 'Search - '
+        'site_title': 'Search - ',
+        'search_value': search_value,
     }
 
     return render(
